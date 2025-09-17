@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW Global Sales Analysis | Arshia Kosha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .meta-item {
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .dashboard-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .dashboard-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .dashboard-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .dashboard-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-image:hover {
+            transform: scale(1.02);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .insight-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .insight-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .insight-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .key-findings {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 5px solid #3498db;
+        }
+
+        .findings-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .findings-list li {
+            background: white;
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .findings-list li strong {
+            color: #2c3e50;
+        }
+
+        .conclusion-section {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .conclusion-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .conclusion-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .tech-badge {
+            background: #34495e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .meta-info {
+                gap: 10px;
+            }
+            
+            .dashboard-section {
+                padding: 20px;
+            }
+            
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>BMW Global Sales Analysis Dashboard</h1>
+            <p class="subtitle">Comprehensive Business Intelligence Analysis</p>
+            <div class="meta-info">
+                <div class="meta-item">Author: Arshia Kosha</div>
+                <div class="meta-item">Project: BMW Sales Analysis</div>
+                <div class="meta-item">Date: September 17, 2025</div>
+                <div class="meta-item">Period: 2010-2024</div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="dashboard-nav">
+            <button class="nav-btn active" onclick="showSection('overview')">Executive Overview</button>
+            <button class="nav-btn" onclick="showSection('timeseries')">Time Series Analysis</button>
+            <button class="nav-btn" onclick="showSection('geographic')">Geographic Analysis</button>
+            <button class="nav-btn" onclick="showSection('product')">Product Mix Analysis</button>
+            <button class="nav-btn" onclick="showSection('conclusions')">Conclusions & Insights</button>
+        </nav>
+
+        <!-- Executive Overview Section -->
+        <section id="overview" class="dashboard-section active">
+            <div class="section-header">
+                <h2 class="section-title">Executive Overview</h2>
+                <p>Comprehensive analysis of 253.4 million BMW vehicle transactions across 15 years</p>
+            </div>
+
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-title">Total Units Analyzed</div>
+                    <div class="insight-value">253.4M</div>
+                    <div class="insight-description">Vehicle transactions across 6 global regions from 2010-2024</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Total Revenue</div>
+                    <div class="insight-value">$4.0B</div>
+                    <div class="insight-description">Global revenue generated across all markets and product lines</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Average Price</div>
+                    <div class="insight-value">$75,030</div>
+                    <div class="insight-description">Consistent premium positioning maintained globally</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">YoY Growth Rate</div>
+                    <div class="insight-value">14.6%</div>
+                    <div class="insight-description">Sustained annual growth over 15-year analysis period</div>
+                </div>
+            </div>
+
+            <div class="key-findings">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Strategic Success Factors</h3>
+                <ul class="findings-list">
+                    <li><strong>Perfect Market Balance:</strong> Each region contributes 16.4-16.8% of total sales, demonstrating exceptional risk diversification</li>
+                    <li><strong>Technology Leadership:</strong> 25.47% hybrid market share leading the sustainable mobility transition</li>
+                    <li><strong>Premium Positioning:</strong> $75K average price maintained across 253M+ units globally</li>
+                    <li><strong>Portfolio Optimization:</strong> Balanced fuel type distribution (24-26% each) ensuring future-ready strategy</li>
+                    <li><strong>Geographic Excellence:</strong> Revenue consistency at $0.62-0.64B per region showing effective global strategy</li>
+                </ul>
+            </div>
+
+            <div class="tech-stack">
+                <div class="tech-badge">Power BI</div>
+                <div class="tech-badge">Advanced DAX</div>
+                <div class="tech-badge">Business Intelligence</div>
+                <div class="tech-badge">Data Visualization</div>
+                <div class="tech-badge">Strategic Analysis</div>
+            </div>
+        </section>
+
+        <!-- Time Series Analysis Section -->
+        <section id="timeseries" class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Time Series Analysis</h2>
+                <p>Sales trends, growth patterns, and temporal insights across 15 years</p>
+            </div>
+
+            <img src="images/dashboard_page1_time_series.png" alt="Time Series Analysis Dashboard" class="dashboard-image">
+
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-title">Growth Consistency</div>
+                    <div class="insight-value">15 Years</div>
+                    <div class="insight-description">Sustained growth trajectory with 14.6% annual increase</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Peak Performance</div>
+                    <div class="insight-value">2022</div>
+                    <div class="insight-description">Highest sales volume year with nearly 10M units in high-volume category</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Market Evolution</div>
+                    <div class="insight-value">4 Fuel Types</div>
+                    <div class="insight-description">Balanced portfolio transition from traditional to sustainable powertrains</div>
+                </div>
+            </div>
+
+            <div class="key-findings">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Temporal Insights</h3>
+                <ul class="findings-list">
+                    <li><strong>High-Volume Dominance:</strong> High-volume classifications consistently outperform low-volume across all years</li>
+                    <li><strong>Fuel Type Evolution:</strong> Hybrid and electric showing accelerated growth post-2020, indicating successful technology transition</li>
+                    <li><strong>Seasonal Patterns:</strong> Clear cyclical patterns with stronger Q4 performance across premium model segments</li>
+                    <li><strong>Model Stability:</strong> 3 Series, 5 Series, and 7 Series maintain consistent market positions throughout analysis period</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Geographic Analysis Section -->
+        <section id="geographic" class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Geographic Performance Analysis</h2>
+                <p>Regional market distribution, preferences, and strategic positioning</p>
+            </div>
+
+            <img src="images/dashboard_page2_geographic.png" alt="Geographic Analysis Dashboard" class="dashboard-image">
+
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-title">Asia Market</div>
+                    <div class="insight-value">42.6M</div>
+                    <div class="insight-description">Units sold (16.8%) - Volume leadership market</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Europe Market</div>
+                    <div class="insight-value">42.6M</div>
+                    <div class="insight-description">Units sold (16.8%) - Mature premium market</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Revenue Balance</div>
+                    <div class="insight-value">$0.63B</div>
+                    <div class="insight-description">Average revenue per region showing exceptional consistency</div>
+                </div>
+            </div>
+
+            <div class="key-findings">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Geographic Strategic Insights</h3>
+                <ul class="findings-list">
+                    <li><strong>Perfect Regional Balance:</strong> Sales distribution varies by only 2.4 percentage points across all 6 regions</li>
+                    <li><strong>Revenue Consistency:</strong> Each region generates $0.62-0.64B, demonstrating effective global pricing strategy</li>
+                    <li><strong>Fuel Preferences:</strong> Remarkably uniform distribution (24-26%) across all regions, showing successful product standardization</li>
+                    <li><strong>Market Maturity:</strong> Europe and North America show premium pricing, while Asia leads in volume penetration</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Product Mix Analysis Section -->
+        <section id="product" class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Product Mix Analysis</h2>
+                <p>Model performance, fuel technology distribution, and portfolio optimization</p>
+            </div>
+
+            <img src="images/dashboard_page3_product_mix.png" alt="Product Mix Analysis Dashboard" class="dashboard-image">
+
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-title">Hybrid Leadership</div>
+                    <div class="insight-value">25.47%</div>
+                    <div class="insight-description">Market share leading sustainable mobility transition</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Electric Portfolio</div>
+                    <div class="insight-value">24.93%</div>
+                    <div class="insight-description">Strong EV market presence demonstrating innovation leadership</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Transmission Split</div>
+                    <div class="insight-value">50.3%</div>
+                    <div class="insight-description">Manual preference maintained, showing enthusiast market retention</div>
+                </div>
+            </div>
+
+            <div class="key-findings">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Portfolio Strategic Analysis</h3>
+                <ul class="findings-list">
+                    <li><strong>Model Hierarchy:</strong> 7 Series leads revenue through premium positioning, 3/5 Series drive volume through accessible luxury</li>
+                    <li><strong>Technology Balance:</strong> Fuel type distribution within 0.86 percentage points indicates successful portfolio management</li>
+                    <li><strong>Innovation Leadership:</strong> Electric models (i3, i8) establish BMW's position in sustainable luxury segment</li>
+                    <li><strong>Price-Performance Correlation:</strong> Clear premium positioning with larger engines commanding higher prices</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Conclusions Section -->
+        <section id="conclusions" class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Strategic Conclusions & Business Impact</h2>
+                <p>Key insights and recommendations based on comprehensive data analysis</p>
+            </div>
+
+            <div class="conclusion-section">
+                <h3 class="conclusion-title">Strategic Excellence Demonstrated</h3>
+                <p class="conclusion-text">
+                    This analysis of 253.4 million BMW vehicle transactions reveals exceptional strategic execution across multiple dimensions. 
+                    BMW has achieved remarkable balance in geographic distribution, technology portfolio, and product positioning while 
+                    maintaining premium brand integrity and consistent 14.6% annual growth over 15 years.
+                </p>
+            </div>
+
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-title">Market Position</div>
+                    <div class="insight-value">Dominant</div>
+                    <div class="insight-description">Balanced geographic risk distribution eliminates single-market dependency</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Technology Leadership</div>
+                    <div class="insight-value">Future-Ready</div>
+                    <div class="insight-description">Diversified fuel portfolio ensures competitiveness through industry transition</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-title">Brand Strength</div>
+                    <div class="insight-value">Premium</div>
+                    <div class="insight-description">$75K average maintained across massive 253M+ unit scale globally</div>
+                </div>
+            </div>
+
+            <div class="key-findings">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">Strategic Recommendations</h3>
+                <ul class="findings-list">
+                    <li><strong>Asia-Pacific Expansion:</strong> Leverage highest volume market position (42.6M units) for continued growth acceleration</li>
+                    <li><strong>Electric Technology Leadership:</strong> Build on 24.93% EV market share to capture sustainable luxury segment</li>
+                    <li><strong>Portfolio Balance Maintenance:</strong> Continue successful risk diversification across regions and technologies</li>
+                    <li><strong>Premium Positioning Defense:</strong> Maintain $75K global average while advancing sustainable technology integration</li>
+                    <li><strong>Market Intelligence Utilization:</strong> Leverage consistent regional patterns for customized market strategies</li>
+                </ul>
+            </div>
+
+            <div class="conclusion-section">
+                <h3 class="conclusion-title">Competitive Advantages Identified</h3>
+                <p class="conclusion-text">
+                    The data demonstrates three core competitive advantages: perfect geographic balance for market stability, 
+                    technology portfolio leadership in emerging segments, and premium brand consistency maintained globally. 
+                    These factors position BMW for continued market leadership through industry transformation while 
+                    maintaining the disciplined strategic approach that has driven 15 years of sustained growth.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <footer class="contact-section">
+            <h3>Connect with Arshia Kosha</h3>
+            <p>Data Analyst | Business Intelligence Specialist</p>
+            <div class="contact-links">
+                <a href="#" class="contact-btn">LinkedIn</a>
+                <a href="#" class="contact-btn">GitHub</a>
+                <a href="#" class="contact-btn">Portfolio</a>
+                <a href="#" class="contact-btn">Email</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.dashboard-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add smooth scrolling and loading animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add fade-in animation to cards
+            const cards = document.querySelectorAll('.insight-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animation = 'fadeIn 0.6s ease forwards';
+            });
+        });
+    </script>
+</body>
+</html>
