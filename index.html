@@ -15,7 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #000000 100%);
             min-height: 100vh;
         }
 
@@ -26,26 +26,26 @@
         }
 
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
             border-radius: 15px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
         }
 
         .header h1 {
             font-size: 2.5rem;
-            color: #2c3e50;
+            color: #1e3c72;
             margin-bottom: 10px;
-            font-weight: 300;
+            font-weight: 600;
         }
 
         .header .subtitle {
             font-size: 1.2rem;
-            color: #7f8c8d;
+            color: #2c3e50;
             margin-bottom: 20px;
         }
 
@@ -58,7 +58,7 @@
         }
 
         .meta-item {
-            background: #3498db;
+            background: #1e3c72;
             color: white;
             padding: 8px 16px;
             border-radius: 25px;
@@ -75,32 +75,32 @@
         }
 
         .nav-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #1e3c72;
             padding: 12px 24px;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
-            color: #2c3e50;
+            color: #1e3c72;
         }
 
         .nav-btn:hover, .nav-btn.active {
-            background: #3498db;
+            background: #1e3c72;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.4);
         }
 
         .dashboard-section {
             display: none;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
             border-radius: 15px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .dashboard-section.active {
@@ -122,9 +122,9 @@
 
         .section-title {
             font-size: 2rem;
-            color: #2c3e50;
+            color: #1e3c72;
             margin-bottom: 10px;
-            font-weight: 300;
+            font-weight: 600;
         }
 
         .dashboard-image {
@@ -149,12 +149,13 @@
         }
 
         .insight-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .insight-card:hover {
@@ -185,7 +186,7 @@
             padding: 30px;
             border-radius: 12px;
             margin: 30px 0;
-            border-left: 5px solid #3498db;
+            border-left: 5px solid #1e3c72;
         }
 
         .findings-list {
@@ -199,15 +200,15 @@
             padding: 15px 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #1e3c72;
         }
 
         .findings-list li strong {
-            color: #2c3e50;
+            color: #1e3c72;
         }
 
         .conclusion-section {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
+            background: linear-gradient(135deg, #1e3c72, #000000);
             color: white;
             padding: 40px;
             border-radius: 15px;
@@ -237,7 +238,7 @@
         }
 
         .tech-badge {
-            background: #34495e;
+            background: #1e3c72;
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -248,9 +249,10 @@
         .contact-section {
             text-align: center;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             border-radius: 15px;
             margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .contact-links {
@@ -261,19 +263,21 @@
         }
 
         .contact-btn {
-            background: #3498db;
+            background: #1e3c72;
             color: white;
             padding: 12px 24px;
             border-radius: 25px;
             text-decoration: none;
             transition: all 0.3s ease;
             font-weight: 500;
+            border: 2px solid #1e3c72;
         }
 
         .contact-btn:hover {
-            background: #2980b9;
+            background: transparent;
+            color: #1e3c72;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -357,7 +361,7 @@
             </div>
 
             <div class="key-findings">
-                <h3 style="margin-bottom: 20px; color: #2c3e50;">Strategic Success Factors</h3>
+                <h3 style="margin-bottom: 20px; color: #1e3c72;">Strategic Success Factors</h3>
                 <ul class="findings-list">
                     <li><strong>Perfect Market Balance:</strong> Each region contributes 16.4-16.8% of total sales, demonstrating exceptional risk diversification</li>
                     <li><strong>Technology Leadership:</strong> 25.47% hybrid market share leading the sustainable mobility transition</li>
@@ -404,7 +408,7 @@
             </div>
 
             <div class="key-findings">
-                <h3 style="margin-bottom: 20px; color: #2c3e50;">Temporal Insights</h3>
+                <h3 style="margin-bottom: 20px; color: #1e3c72;">Temporal Insights</h3>
                 <ul class="findings-list">
                     <li><strong>High-Volume Dominance:</strong> High-volume classifications consistently outperform low-volume across all years</li>
                     <li><strong>Fuel Type Evolution:</strong> Hybrid and electric showing accelerated growth post-2020, indicating successful technology transition</li>
@@ -442,7 +446,7 @@
             </div>
 
             <div class="key-findings">
-                <h3 style="margin-bottom: 20px; color: #2c3e50;">Geographic Strategic Insights</h3>
+                <h3 style="margin-bottom: 20px; color: #1e3c72;">Geographic Strategic Insights</h3>
                 <ul class="findings-list">
                     <li><strong>Perfect Regional Balance:</strong> Sales distribution varies by only 2.4 percentage points across all 6 regions</li>
                     <li><strong>Revenue Consistency:</strong> Each region generates $0.62-0.64B, demonstrating effective global pricing strategy</li>
@@ -480,7 +484,7 @@
             </div>
 
             <div class="key-findings">
-                <h3 style="margin-bottom: 20px; color: #2c3e50;">Portfolio Strategic Analysis</h3>
+                <h3 style="margin-bottom: 20px; color: #1e3c72;">Portfolio Strategic Analysis</h3>
                 <ul class="findings-list">
                     <li><strong>Model Hierarchy:</strong> 7 Series leads revenue through premium positioning, 3/5 Series drive volume through accessible luxury</li>
                     <li><strong>Technology Balance:</strong> Fuel type distribution within 0.86 percentage points indicates successful portfolio management</li>
@@ -525,7 +529,7 @@
             </div>
 
             <div class="key-findings">
-                <h3 style="margin-bottom: 20px; color: #2c3e50;">Strategic Recommendations</h3>
+                <h3 style="margin-bottom: 20px; color: #1e3c72;">Strategic Recommendations</h3>
                 <ul class="findings-list">
                     <li><strong>Asia-Pacific Expansion:</strong> Leverage highest volume market position (42.6M units) for continued growth acceleration</li>
                     <li><strong>Electric Technology Leadership:</strong> Build on 24.93% EV market share to capture sustainable luxury segment</li>
@@ -551,8 +555,8 @@
             <h3>Connect with Arshia Kosha</h3>
             <p>Data Analyst | Business Intelligence Specialist</p>
             <div class="contact-links">
-                <a href="https://www.linkedin.com/in/arshiakosha" class="contact-btn">LinkedIn</a>
-                <a href="https://arshiakosha.github.io" class="contact-btn">Portfolio</a>
+                <a href="https://www.linkedin.com/in/arshiakosha/" class="contact-btn">LinkedIn</a>
+                <a href="https://arshiakosha.github.io/Arshiakosha/" class="contact-btn">Portfolio</a>
                 <a href="mailto:arshia.kosha81@gmail.com" class="contact-btn">Email</a>
                 <a href="https://calendly.com/arshia-kosha81/30min" class="contact-btn">Schedule Meeting</a>
             </div>
